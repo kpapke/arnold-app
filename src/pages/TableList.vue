@@ -8,7 +8,7 @@
             <p class="category">Here is a subtitle for this table</p>
           </md-card-header>
           <md-card-content>
-            <simple-table table-header-color="green"></simple-table>
+            <simple-table table-header-color="green"/>
           </md-card-content>
         </md-card>
       </div>
@@ -20,7 +20,7 @@
             <p class="category">Here is a subtitle for this table</p>
           </md-card-header>
           <md-card-content>
-            <ordered-table></ordered-table>
+            <ordered-table/>
           </md-card-content>
         </md-card>
       </div>
@@ -29,12 +29,9 @@
 </template>
 
 <script>
-import {
-  SimpleTable,
-  OrderedTable
-} from '@/components'
+import { SimpleTable, OrderedTable } from '@/components'
 
-export default{
+export default {
   components: {
     OrderedTable,
     SimpleTable

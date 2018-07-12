@@ -1,19 +1,27 @@
 <template>
-  <md-toolbar md-elevation="0" class="md-transparent">
+  <md-toolbar 
+    md-elevation="0" 
+    class="md-transparent">
     <div class="md-toolbar-row">
       <div class="md-toolbar-section-start">
-        <h3 class="md-title">{{$route.name}}</h3>
+        <h3 class="md-title">{{ $route.name }}</h3>
       </div>
       <div class="md-toolbar-section-end">
-        <md-button class="md-just-icon md-simple md-toolbar-toggle" :class="{toggled: $sidebar.showSidebar}" @click="toggleSidebar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+        <md-button 
+          :class="{toggled: $sidebar.showSidebar}" 
+          class="md-just-icon md-simple md-toolbar-toggle" 
+          @click="toggleSidebar">
+          <span class="icon-bar"/>
+          <span class="icon-bar"/>
+          <span class="icon-bar"/>
         </md-button>
 
         <div class="md-collapse">
           <div class="md-autocomplete">
-            <md-autocomplete class="search" v-model="selectedHosts" :md-options="hosts">
+            <md-autocomplete 
+              v-model="selectedHosts" 
+              :md-options="hosts" 
+              class="search">
               <label>Search Hosts</label>
             </md-autocomplete>
           </div>
@@ -23,9 +31,14 @@
               <p class="hidden-lg hidden-md">Colors</p>
             </md-list-item>
 
-            <md-list-item to="#" class="dropdown">
+            <md-list-item 
+              to="#" 
+              class="dropdown">
               <drop-down>
-                <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
+                <a 
+                  slot="title" 
+                  class="dropdown-toggle" 
+                  data-toggle="dropdown">
                   <i class="material-icons">notifications</i>
                   <span class="notification">1</span>
                   <p class="hidden-lg hidden-md">Notifications</p>
@@ -51,14 +64,14 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       selectedHosts: null,
       hosts: ['Teddy']
     }
   },
   methods: {
-    toggleSidebar () {
+    toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
     }
   }

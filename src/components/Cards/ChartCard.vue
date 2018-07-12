@@ -1,21 +1,25 @@
 <template>
   <md-card>
-    <md-card-header class="card-chart" :data-background-color="dataBackgroundColor">
-      <div :id="chartId" class="ct-chart"></div>
+    <md-card-header 
+      :data-background-color="dataBackgroundColor" 
+      class="card-chart">
+      <div 
+        :id="chartId" 
+        class="ct-chart"/>
     </md-card-header>
 
     <md-card-content>
-      <slot name="content"></slot>
+      <slot name="content"/>
     </md-card-content>
 
     <md-card-actions md-alignment="left">
-      <slot name="footer"></slot>
+      <slot name="footer"/>
     </md-card-actions>
   </md-card>
 </template>
 <script>
 export default {
-  name: 'chart-card',
+  name: 'ChartCard',
   props: {
     footerText: {
       type: String,
@@ -55,34 +59,34 @@ export default {
       default: ''
     }
   },
-  data () {
+  data() {
     return {
       chartId: 'no-id'
     }
+  },
+  mounted() {
+    this.updateChartId()
+    this.$nextTick(this.initChart)
   },
   methods: {
     /***
      * Initializes the chart by merging the chart options sent via props and the default chart options
      */
-    initChart () {
+    initChart() {
       var chartIdQuery = `#${this.chartId}`
       this.$Chartist[this.chartType](chartIdQuery, this.chartData, this.chartOptions)
     },
     /***
      * Assigns a random id to the chart
      */
-    updateChartId () {
+    updateChartId() {
       var currentTime = new Date().getTime().toString()
       var randomInt = this.getRandomInt(0, currentTime)
       this.chartId = `div_${randomInt}`
     },
-    getRandomInt (min, max) {
+    getRandomInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min
     }
-  },
-  mounted () {
-    this.updateChartId()
-    this.$nextTick(this.initChart)
   }
 }
 </script>

@@ -9,9 +9,9 @@
           data-background-color="blue">
           <template slot="content">
             <h4 class="title">Daily Sales</h4>
-              <p class="category">
-                <span class="text-success"><i class="fas fa-long-arrow-alt-up"></i> 55% </span> increase in today sales.
-              </p>
+            <p class="category">
+              <span class="text-success"><i class="fas fa-long-arrow-alt-up"/> 55% </span> increase in today sales.
+            </p>
           </template>
 
           <template slot="footer">
@@ -31,9 +31,9 @@
           data-background-color="red">
           <template slot="content">
             <h4 class="title">Email Subscription</h4>
-              <p class="category">
-                Last Campaign Performance
-              </p>
+            <p class="category">
+              Last Campaign Performance
+            </p>
           </template>
 
           <template slot="footer">
@@ -52,9 +52,9 @@
           data-background-color="green">
           <template slot="content">
             <h4 class="title">Completed Tasks</h4>
-              <p class="category">
-                Last Campaign Performance
-              </p>
+            <p class="category">
+              Last Campaign Performance
+            </p>
           </template>
 
           <template slot="footer">
@@ -78,8 +78,8 @@
 
           <template slot="footer">
             <div class="stats">
-                <md-icon>date_range</md-icon>
-                Last 24 Hours
+              <md-icon>date_range</md-icon>
+              Last 24 Hours
             </div>
           </template>
         </stats-card>
@@ -93,7 +93,7 @@
           <template slot="content">
             <p class="category">Used Space</p>
             <h3 class="title">49/50
-                <small>GB</small>
+              <small>GB</small>
             </h3>
           </template>
 
@@ -107,7 +107,7 @@
       </div>
       <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
         <stats-card data-background-color="red">
-          <template  slot="header">
+          <template slot="header">
             <md-icon >info_outline</md-icon>
           </template>
 
@@ -118,16 +118,16 @@
 
           <template slot="footer">
             <div class="stats">
-               <md-icon>local_offer</md-icon>
-               Tracked from Github
+              <md-icon>local_offer</md-icon>
+              Tracked from Github
             </div>
           </template>
         </stats-card>
       </div>
       <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
         <stats-card data-background-color="blue">
-          <template  slot="header">
-            <i class="fab fa-twitter"></i>
+          <template slot="header">
+            <i class="fab fa-twitter"/>
           </template>
 
           <template slot="content">
@@ -137,8 +137,8 @@
 
           <template slot="footer">
             <div class="stats">
-               <md-icon>update</md-icon>
-               Just Updated
+              <md-icon>update</md-icon>
+              Just Updated
             </div>
           </template>
         </stats-card>
@@ -150,7 +150,7 @@
             <p class="category">New employees on 15th September, 2016</p>
           </md-card-header>
           <md-card-content>
-            <ordered-table table-header-color="orange"></ordered-table>
+            <ordered-table table-header-color="orange"/>
           </md-card-content>
         </md-card>
       </div>
@@ -158,18 +158,30 @@
         <nav-tabs-card>
           <template slot="content">
             <span class="md-nav-tabs-title">Tasks:</span>
-            <md-tabs md-sync-route class="md-success" md-alignment="left">
+            <md-tabs 
+              md-sync-route 
+              class="md-success" 
+              md-alignment="left">
 
-              <md-tab id="tab-home" md-label="Bugs" md-icon="bug_report">
-                <nav-tabs-table></nav-tabs-table>
+              <md-tab 
+                id="tab-home" 
+                md-label="Bugs" 
+                md-icon="bug_report">
+                <nav-tabs-table/>
               </md-tab>
 
-              <md-tab id="tab-pages" md-label="Website" md-icon="code">
-                <nav-tabs-table></nav-tabs-table>
+              <md-tab 
+                id="tab-pages" 
+                md-label="Website" 
+                md-icon="code">
+                <nav-tabs-table/>
               </md-tab>
 
-              <md-tab id="tab-posts" md-label="server" md-icon="cloud">
-                <nav-tabs-table></nav-tabs-table>
+              <md-tab 
+                id="tab-posts" 
+                md-label="server" 
+                md-icon="cloud">
+                <nav-tabs-table/>
               </md-tab>
             </md-tabs>
           </template>
@@ -180,13 +192,7 @@
 </template>
 
 <script>
-import {
-  StatsCard,
-  ChartCard,
-  NavTabsCard,
-  NavTabsTable,
-  OrderedTable
-} from '@/components'
+import { StatsCard, ChartCard, NavTabsCard, NavTabsTable, OrderedTable } from '@/components'
 
 export default {
   components: {
@@ -196,7 +202,7 @@ export default {
     NavTabsTable,
     OrderedTable
   },
-  data () {
+  data() {
     return {
       dailySalesChart: {
         data: {
@@ -239,20 +245,7 @@ export default {
       },
       emailsSubscriptionChart: {
         data: {
-          labels: [
-            'Ja',
-            'Fe',
-            'Ma',
-            'Ap',
-            'Mai',
-            'Ju',
-            'Jul',
-            'Au',
-            'Se',
-            'Oc',
-            'No',
-            'De'
-          ],
+          labels: ['Ja', 'Fe', 'Ma', 'Ap', 'Mai', 'Ju', 'Jul', 'Au', 'Se', 'Oc', 'No', 'De'],
           series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]]
         },
         options: {
@@ -274,7 +267,7 @@ export default {
             {
               seriesBarDistance: 5,
               axisX: {
-                labelInterpolationFnc: function (value) {
+                labelInterpolationFnc: function(value) {
                   return value[0]
                 }
               }

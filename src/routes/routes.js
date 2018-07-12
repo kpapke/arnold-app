@@ -1,30 +1,30 @@
-import Colors from "@/pages/Colors.vue";
-import Dashboard from "@/pages/Dashboard.vue";
-import Icons from "@/pages/Icons.vue";
-import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
-import Notifications from "@/pages/Notifications.vue";
-import Typography from "@/pages/Typography.vue";
-import UserProfile from "@/pages/UserProfile.vue";
+import Colors from '@/pages/Colors.vue'
+import Dashboard from '@/pages/Dashboard.vue'
+import Icons from '@/pages/Icons.vue'
+import DashboardLayout from '@/pages/Layout/DashboardLayout.vue'
+import Notifications from '@/pages/Notifications.vue'
+import Typography from '@/pages/Typography.vue'
+import UserProfile from '@/pages/UserProfile.vue'
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     component: DashboardLayout,
-    redirect: "/dashboard",
+    redirect: '/dashboard',
     children: [
       {
-        path: "dashboard",
-        name: "Dashboard",
+        path: 'dashboard',
+        name: 'Dashboard',
         component: Dashboard
       },
       {
-        path: "colors",
-        name: "Colors",
+        path: 'colors',
+        name: 'Colors',
         component: Colors
       },
       {
-        path: "user",
-        name: "User Profile",
+        path: 'user',
+        name: 'User Profile',
         component: UserProfile
       },
       //   {
@@ -33,13 +33,13 @@ const routes = [
       //     component: TableList
       //   },
       {
-        path: "typography",
-        name: "Typography",
+        path: 'typography',
+        name: 'Typography',
         component: Typography
       },
       {
-        path: "icons",
-        name: "Icons",
+        path: 'icons',
+        name: 'Icons',
         component: Icons
       },
       //   {
@@ -52,12 +52,12 @@ const routes = [
 
       //   },
       {
-        path: "notifications",
-        name: "Notifications",
+        path: 'notifications',
+        name: 'Notifications',
         component: Notifications
       }
     ]
   }
-];
+]
 
-export default routes;
+export default routes

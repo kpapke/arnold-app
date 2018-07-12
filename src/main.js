@@ -31,7 +31,7 @@ Vue.use(Notifications)
 
 // global library setup
 Object.defineProperty(Vue.prototype, '$Chartist', {
-  get () {
+  get() {
     return this.$root.Chartist
   }
 })
@@ -48,9 +48,9 @@ firestore.settings(settings)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  render: h => h(App),
-  router,
   data: {
     Chartist: Chartist
-  }
+  },
+  render: h => h(App),
+  router
 })

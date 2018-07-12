@@ -1,19 +1,21 @@
 <template>
   <div class="content">
     <div class="md-layout">
-        <div>
-            <article v-for="(color, idx) in colors" :key="idx">
-                <div :class="['base-color base-' + color.name ]">
-                    <h2>{{ color.number }} {{ color.name }}</h2>
-                </div>
-                <!-- <button @click="deleteColor(color.id)">Delete Color</button> -->
-            </article>
-            <!-- <form @submit="addColor(name, number)">
+      <div>
+        <article 
+          v-for="(color, idx) in colors" 
+          :key="idx">
+          <div :class="['base-color base-' + color.name ]">
+            <h2>{{ color.number }} {{ color.name }}</h2>
+          </div>
+          <!-- <button @click="deleteColor(color.id)">Delete Color</button> -->
+        </article>
+        <!-- <form @submit="addColor(name, number)">
                 <input v-model="name" placeholder="color Name">
                 <input v-model="number" placeholder="color Number">
                 <button type="submit">Add New Color</button>
             </form> -->
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -21,14 +23,14 @@
 <script>
 import { firestore } from '../main'
 export default {
-  data () {
+  data() {
     return {
       colors: [],
       name: '',
       number: ''
     }
   },
-  firestore () {
+  firestore() {
     return {
       colors: firestore.collection('colors').orderBy('createdAt')
     }

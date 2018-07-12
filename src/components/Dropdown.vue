@@ -1,33 +1,46 @@
 <template>
-  <div class="dropdown" :class="{open:isOpen}" @click="toggleDropDown" v-click-outside="closeDropDown">
-      <slot name="title">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
-          <i :class="icon"></i>
-          <p class="notification">{{title}}
-            <b class="caret"></b>
-          </p>
-        </a>
-      </slot>
-    <slot></slot>
+  <div 
+    v-click-outside="closeDropDown" 
+    :class="{open:isOpen}" 
+    class="dropdown" 
+    @click="toggleDropDown">
+    <slot name="title">
+      <a 
+        class="dropdown-toggle" 
+        data-toggle="dropdown" 
+        href="javascript:void(0)">
+        <i :class="icon"/>
+        <p class="notification">{{ title }}
+          <b class="caret"/>
+        </p>
+      </a>
+    </slot>
+    <slot/>
   </div>
 </template>
 <script>
-export default{
-  name: 'drop-down',
+export default {
+  name: 'DropDown',
   props: {
-    title: String,
-    icon: String
+    title: {
+      type: String,
+      default: ''
+    },
+    icon: {
+      type: String,
+      default: ''
+    }
   },
-  data () {
+  data() {
     return {
       isOpen: false
     }
   },
   methods: {
-    toggleDropDown () {
+    toggleDropDown() {
       this.isOpen = !this.isOpen
     },
-    closeDropDown () {
+    closeDropDown() {
       this.isOpen = false
     }
   }

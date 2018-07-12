@@ -1,26 +1,36 @@
 <template>
-  <div class="sidebar" :data-color="activeColor" :data-image="backgroundImage" :style="sidebarStyle">
+  <div 
+    :data-color="activeColor" 
+    :data-image="backgroundImage" 
+    :style="sidebarStyle" 
+    class="sidebar">
     <div class="logo">
-      <a href="#" class="simple-text logo-mini">
+      <a 
+        href="#" 
+        class="simple-text logo-mini">
         <div class="logo-img">
-            <img :src="imgLogo" alt="">
+          <img 
+            :src="imgLogo" 
+            alt="">
         </div>
       </a>
 
-      <a href="#" class="simple-text logo-normal">
-        {{title}}
+      <a 
+        href="#" 
+        class="simple-text logo-normal">
+        {{ title }}
       </a>
     </div>
     <div class="sidebar-wrapper">
-      <slot name="content"></slot>
+      <slot name="content"/>
       <md-list class="nav">
         <!--By default vue-router adds an active class to each route link. This way the links are colored when clicked-->
         <slot>
-          <sidebar-link v-for="(link,index) in sidebarLinks"
-                        :key="link.name + index"
-                        :to="link.path"
-                        :link="link">
-          </sidebar-link>
+          <sidebar-link 
+            v-for="(link,index) in sidebarLinks"
+            :key="link.name + index"
+            :to="link.path"
+            :link="link"/>
         </slot>
       </md-list>
     </div>
@@ -65,13 +75,13 @@ export default {
       default: true
     }
   },
-  provide () {
+  provide() {
     return {
       autoClose: this.autoClose
     }
   },
   computed: {
-    sidebarStyle () {
+    sidebarStyle() {
       return {
         backgroundImage: `url(${this.backgroundImage})`
       }

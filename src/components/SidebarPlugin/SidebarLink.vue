@@ -1,14 +1,15 @@
 <template>
-  <md-list-item @click="hideSidebar"
-                v-bind="$attrs">
+  <md-list-item 
+    v-bind="$attrs"
+    @click="hideSidebar">
     <slot>
-      <md-icon>{{link.icon}}</md-icon>
-      <p>{{link.name}}</p>
+      <md-icon>{{ link.icon }}</md-icon>
+      <p>{{ link.name }}</p>
     </slot>
   </md-list-item>
 </template>
 <script>
-export default{
+export default {
   inject: {
     autoClose: {
       default: true
@@ -31,7 +32,7 @@ export default{
     }
   },
   methods: {
-    hideSidebar () {
+    hideSidebar() {
       if (this.autoClose && this.$sidebar && this.$sidebar.showSidebar === true) {
         this.$sidebar.displaySidebar(false)
       }

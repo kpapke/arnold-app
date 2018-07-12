@@ -1,14 +1,13 @@
 <template>
   <div class="wrapper">
-    <notifications></notifications>
 
     <side-bar>
-      <mobile-menu slot="content"></mobile-menu>
+      <mobile-menu slot="content"/>
       <!-- <sidebar-link to="/dashboard">
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link> -->
-    <sidebar-link to="/colors">
+      <sidebar-link to="/colors">
         <md-icon>circle</md-icon>
         <p>Colors</p>
       </sidebar-link>
@@ -39,13 +38,11 @@
     </side-bar>
 
     <div class="main-panel">
-      <top-navbar></top-navbar>
+      <top-navbar/>
 
-      <dashboard-content>
+      <dashboard-content/>
 
-      </dashboard-content>
-
-      <content-footer v-if="!$route.meta.hideFooter"></content-footer>
+      <content-footer v-if="!$route.meta.hideFooter"/>
     </div>
   </div>
 </template>
