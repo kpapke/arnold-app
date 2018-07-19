@@ -45,6 +45,15 @@ export const firestore = firebase.firestore()
 const settings = { timestampsInSnapshots: true }
 firestore.settings(settings)
 
+export const db = {
+  getClasses: () => {
+    return firestore.collection('classes').orderBy('key')
+  },
+  getColors: () => {
+    return firestore.collection('colors').orderBy('key')
+  }
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

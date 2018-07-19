@@ -4,20 +4,21 @@
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card>
           <md-card-header data-background-color="green">
-            <h4 class="title">Colors Header</h4>
-            <p class="category">Colors Subtitle</p>
+            <h4 class="title">Attributes Header</h4>
+            <p class="category">Attributes Subtitle</p>
           </md-card-header>
           <md-card-content>
             <md-table 
-              v-model="colors" 
+              v-model="attributes" 
               data-background-color="green">
               <md-table-row 
                 slot="md-table-row" 
                 slot-scope="{ item }">
                 <md-table-cell md-label="key">{{ item.key }}</md-table-cell>
-                <md-table-cell md-label="name" >
-                  <div :class="['base-color base-' + item.key ]"/>
-                  <span>{{ item.name }}</span>
+                <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
+                <md-table-cell md-label="color" >
+                  <div :class="['base-color base-' + item.color ]"/>
+                  <span>{{ classes[item.color-1] ? classes[item.color-1].name : '' }}</span>
                 </md-table-cell>
               </md-table-row>
             </md-table>
@@ -39,17 +40,17 @@ export default {
   },
   data() {
     return {
-      colors: {},
+      classes: [],
+      attributes: [],
       name: '',
-      key: ''
+      key: '',
+      color: ''
     }
   },
   firestore() {
     return {
-      colors: firestore
-        .collection('colors')
-        .orderBy('key')
-        .where('key', '>', 0)
+      attributes: firestore.collection('attributes').orderBy('key'),
+      classes: firestore.collection('classes').orderBy('key')
     }
   }
 }

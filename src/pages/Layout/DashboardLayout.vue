@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <notifications/>
 
     <side-bar>
       <mobile-menu slot="content"/>
@@ -7,10 +8,52 @@
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link> -->
+
+      <sidebar-link to="/add-host">
+        <md-icon>person_add</md-icon>
+        <p>Add Host</p>
+      </sidebar-link>
+      <sidebar-link to="/hosts">
+        <md-icon>group</md-icon>
+        <p>Hosts</p>
+      </sidebar-link>
+      <sidebar-link to="/classes">
+        <md-icon>people_outline</md-icon>
+        <p>Classes</p>
+      </sidebar-link>
+      <sidebar-link to="/roles">
+        <md-icon>business_center</md-icon>
+        <p>Roles</p>
+      </sidebar-link>
+      <sidebar-link to="/attributes">
+        <md-icon>pie_chart</md-icon>
+        <p>Attributes</p>
+      </sidebar-link>
+      <sidebar-link to="/max-potential">
+        <md-icon>bar_chart</md-icon>
+        <p>Max Potential</p>
+      </sidebar-link> 
+      <sidebar-link to="/props">
+        <md-icon>fitness_center</md-icon>
+        <p>Props</p>
+      </sidebar-link>
+      <sidebar-link to="/reveries">
+        <md-icon>cloud_upload</md-icon>
+        <p>Reveries</p>
+      </sidebar-link>
+      <sidebar-link to="/buildings">
+        <md-icon>store_mall_directory</md-icon>
+        <p>Buildings</p>
+      </sidebar-link>
+      <sidebar-link to="/locations">
+        <md-icon>map</md-icon>
+        <p>Locations</p>
+      </sidebar-link>
       <sidebar-link to="/colors">
-        <md-icon>circle</md-icon>
+        <md-icon>color_lens</md-icon>
         <p>Colors</p>
       </sidebar-link>
+
       <!-- <sidebar-link to="/user">
         <md-icon>person</md-icon>
         <p>User Profile</p>
