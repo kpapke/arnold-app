@@ -1,8 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Chartist from 'chartist'
-import firebase from 'firebase/app'
-import 'firebase/firestore'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueFire from 'vuefire'
@@ -14,13 +12,12 @@ import GlobalDirectives from './globalDirectives'
 // MaterialDashboard plugin
 import MaterialDashboard from './material-dashboard'
 // router setup
-import routes from './routes/routes'
+import router from './router'
+// Vuex store
+import { store } from './store'
+const firebaseConfig = require('./firebaseConfig')
 
-// configure router
-const router = new VueRouter({
-  routes, // short for routes: routes
-  linkExactActiveClass: 'nav-item active'
-})
+Vue.config.productionTip = false
 
 Vue.use(VueFire)
 Vue.use(VueRouter)
@@ -36,30 +33,18 @@ Object.defineProperty(Vue.prototype, '$Chartist', {
   }
 })
 
-// setup firebase
-firebase.initializeApp({
-  projectId: 'vuefire-f2ffb',
-  databaseURL: 'https://vuefire-f2ffb.firebaseio.com'
-})
-export const firestore = firebase.firestore()
-const settings = { timestampsInSnapshots: true }
-firestore.settings(settings)
-
-export const db = {
-  getClasses: () => {
-    return firestore.collection('classes').orderBy('key')
-  },
-  getColors: () => {
-    return firestore.collection('colors').orderBy('key')
-  }
-}
-
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  data: {
-    Chartist: Chartist
-  },
-  render: h => h(App),
-  router
+let app
+firebaseConfig.auth.onAuthStateChanged(user => {
+  if (!app) {
+    app = new Vue({
+      el: '#app',
+      data: {
+        Chartist: Chartist
+      },
+      render: h => h(App),
+      router,
+      store
+    })
+  }
 })
