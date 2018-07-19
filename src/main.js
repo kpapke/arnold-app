@@ -15,7 +15,7 @@ import MaterialDashboard from './material-dashboard'
 import router from './router'
 // Vuex store
 import { store } from './store'
-const firebaseConfig = require('./firebaseConfig')
+const fb = require('./firebaseConfig')
 
 Vue.config.productionTip = false
 
@@ -34,8 +34,9 @@ Object.defineProperty(Vue.prototype, '$Chartist', {
 })
 
 /* eslint-disable no-new */
+// handle page reloads
 let app
-firebaseConfig.auth.onAuthStateChanged(user => {
+fb.auth.onAuthStateChanged(user => {
   if (!app) {
     app = new Vue({
       el: '#app',

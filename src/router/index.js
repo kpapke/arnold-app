@@ -3,6 +3,7 @@ import Classes from '@/pages/Classes'
 import Colors from '@/pages/Colors'
 import Dashboard from '@/pages/Dashboard'
 import DashboardLayout from '@/pages/Layout/DashboardLayout'
+import Login from '@/pages/Login'
 import Roles from '@/pages/Roles'
 import firebase from 'firebase'
 import VueRouter from 'vue-router'
@@ -48,6 +49,11 @@ const router = new VueRouter({
           component: Dashboard
         },
         {
+          path: 'login',
+          name: 'Login',
+          component: Login
+        },
+        {
           path: 'roles',
           name: 'Roles',
           component: Roles,
@@ -66,6 +72,7 @@ router.beforeEach((to, from, next) => {
 
   if (requiresAuth && !currentUser) {
     next('/login')
+    console.log('current User', currentUser)
   } else if (requiresAuth && currentUser) {
     next()
   } else {
