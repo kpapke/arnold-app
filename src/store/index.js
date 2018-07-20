@@ -1,64 +1,38 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import router from '../router'
-
-const fb = require('./firebaseConfig')
+import actions from './actions'
+import getters from './getters'
+import mutations from './mutations'
+import state from './state'
 
 Vue.use(Vuex)
 
-// handle page reload
-fb.auth.onAuthStateChanged(user => {
-  if (user) {
-    store.commit('setCurrentUser', user)
-    store.dispatch('fetchUserProfile')
+const fb = require('./firebaseConfig')
 
-    fb.usersCollection.doc(user.uid).onSnapshot(doc => {
-      store.commit('setUserProfile', doc.data())
-    })
-  }
+const collections = [
+  { commitName: 'setColors', data: fb.colorsCollection },
+  { commitName: 'setClasses', data: fb.classesCollection },
+  { commitName: 'setAttributes', data: fb.attributesCollection }
+]
+collections.forEach(collection => {
+  collection.data.get().then(querySnapshot => {
+    if (querySnapshot.empty) {
+      return
+    } else {
+      const items = []
+      querySnapshot.forEach(doc => {
+        items.push({ id: doc.id, data: doc.data() })
+      })
+      store.commit(collection.commitName, items)
+    }
+  })
 })
 
 const store = new Vuex.Store({
-  state: {
-    currentUser: null,
-    userProfile: {}
-  },
-  actions: {
-    clearData({ commit }) {
-      commit('setCurrentUser', null)
-      commit('setUserProfile', {})
-    },
-    fetchUserProfile({ commit, state }) {
-      fb.usersCollection
-        .doc(state.currentUser.uid)
-        .get()
-        .then(res => {
-          commit('setUserProfile', res.data())
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    signOut({ dispatch }) {
-      fb.auth
-        .signOut()
-        .then(() => {
-          dispatch('clearData')
-          router.push('/signin')
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  },
-  mutations: {
-    setCurrentUser(state, val) {
-      state.currentUser = val
-    },
-    setUserProfile(state, val) {
-      state.userProfile = val
-    }
-  }
+  state,
+  getters,
+  actions,
+  mutations
 })
 
 export default store

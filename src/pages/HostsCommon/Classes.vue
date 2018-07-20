@@ -4,19 +4,19 @@
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card>
           <md-card-header data-background-color="green">
-            <h4 class="title">Classes Header</h4>
-            <p class="category">Classes Subtitle</p>
+            <h4 class="title">Classes Table</h4>
+            <p class="category">{{ countCollection('classes') }} Items</p>
           </md-card-header>
           <md-card-content>
             <md-table v-model="classes">
               <md-table-row 
                 slot="md-table-row" 
                 slot-scope="{ item }">
-                <md-table-cell md-label="key">{{ item.key }}</md-table-cell>
-                <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
+                <md-table-cell md-label="key">{{ item.data.key }}</md-table-cell>
+                <md-table-cell md-label="name">{{ item.data.name }}</md-table-cell>
                 <md-table-cell md-label="color" >
-                  <div :class="['base-color base-' + item.key ]"/>
-                  <span>{{ colors[item.key-1] ? colors[item.key-1].name : '' }}</span>
+                  <div :class="['base-color base-' + item.data.key ]"/>
+                  <span>{{ colors[item.data.key-1] ? colors[item.data.key-1].name : '' }}</span>
                 </md-table-cell>
               </md-table-row>
             </md-table>
@@ -28,23 +28,12 @@
 </template>
 
 <script>
-const fb = require('../../store/firebaseConfig')
+import { mapState, mapGetters } from 'vuex'
 
 export default {
-  data() {
-    return {
-      colors: [],
-      classes: {},
-      name: '',
-      key: '',
-      color: ''
-    }
-  },
-  firestore() {
-    return {
-      classes: fb.classesCollection,
-      colors: fb.colorsCollection
-    }
+  computed: {
+    ...mapState(['colors', 'classes']),
+    ...mapGetters(['countCollection'])
   }
 }
 </script>
