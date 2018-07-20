@@ -26,7 +26,8 @@
             <div class="md-layout-item md-size-100">
               <md-button 
                 class="md-raised md-success" 
-                type="submit">Add Item</md-button>
+                type="submit">Add Item
+              </md-button>
             </div>
           </form>
         </md-card>
@@ -38,7 +39,7 @@
           <md-card-content>
             <md-table 
               v-model="items" 
-              data-background-color="green">
+            >
               <md-table-row 
                 slot="md-table-row" 
                 slot-scope="{ item }">
@@ -59,14 +60,9 @@
 </template>
 
 <script>
-import { SimpleTable, OrderedTable } from '@/components'
-import { firestore } from '../main'
+const fb = require('../../store/firebaseConfig')
 
 export default {
-  components: {
-    OrderedTable,
-    SimpleTable
-  },
   data() {
     return {
       classes: [],
@@ -78,21 +74,19 @@ export default {
   },
   firestore() {
     return {
-      items: firestore.collection('attributes').orderBy('key'),
-      classes: firestore.collection('classes').orderBy('key')
+      items: fb.attributesCollection,
+      classes: fb.classesCollection
     }
   },
   methods: {
     addItem(key, name, color) {
       const createdAt = new Date()
-      firestore.collection('attributes').add({ key, name, color, createdAt })
+      console.log(`Item Added { ${key}, ${name}, ${color} }`)
+      fb.db.collection('colors').add({ key, name, color, createdAt })
       this.showToast('success', `Item Added { ${key}, ${name}, ${color} }`)
     },
     deleteItem(id) {
-      firestore
-        .collection('attributes')
-        .doc(id)
-        .delete()
+      fb.attributesCollection.doc(id).delete()
       this.showToast('warning', 'Item Deleted')
     },
     showToast(type, message) {

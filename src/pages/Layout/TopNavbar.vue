@@ -1,5 +1,5 @@
 <template>
-  <md-toolbar 
+  <md-toolbar
     md-elevation="0" 
     class="md-transparent">
     <div class="md-toolbar-row">
@@ -46,13 +46,26 @@
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li><a href="#">One notice</a></li>
                 </ul>
-
               </drop-down>
             </md-list-item>
 
-            <md-list-item to="#">
-              <i class="material-icons">person</i>
-              <p class="hidden-lg hidden-md">Profile</p>
+            <md-list-item
+              to="#" 
+              class="dropdown">
+              <drop-down>
+                <a 
+                  slot="title" 
+                  class="dropdown-toggle" 
+                  data-toggle="dropdown">
+                  <i class="material-icons">person</i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li><router-link to="profile">{{ currentUser.email }}</router-link></li>
+                  <li><a 
+                    href="#" 
+                    @click="signOut">Sign Out</a></li>
+                </ul>
+              </drop-down>
             </md-list-item>
           </md-list>
         </div>
@@ -63,6 +76,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data() {
     return {
@@ -70,9 +85,15 @@ export default {
       hosts: ['Teddy']
     }
   },
+  computed: {
+    ...mapState(['currentUser'])
+  },
   methods: {
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
+    },
+    signOut() {
+      this.$store.dispatch('signOut')
     }
   }
 }

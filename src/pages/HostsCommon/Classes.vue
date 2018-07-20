@@ -4,20 +4,19 @@
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card>
           <md-card-header data-background-color="green">
-            <h4 class="title">Colors Header</h4>
-            <p class="category">Colors Subtitle</p>
+            <h4 class="title">Classes Header</h4>
+            <p class="category">Classes Subtitle</p>
           </md-card-header>
           <md-card-content>
-            <md-table 
-              v-model="colors" 
-              data-background-color="green">
+            <md-table v-model="classes">
               <md-table-row 
                 slot="md-table-row" 
                 slot-scope="{ item }">
                 <md-table-cell md-label="key">{{ item.key }}</md-table-cell>
-                <md-table-cell md-label="name" >
+                <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
+                <md-table-cell md-label="color" >
                   <div :class="['base-color base-' + item.key ]"/>
-                  <span>{{ item.name }}</span>
+                  <span>{{ colors[item.key-1] ? colors[item.key-1].name : '' }}</span>
                 </md-table-cell>
               </md-table-row>
             </md-table>
@@ -29,27 +28,22 @@
 </template>
 
 <script>
-import { SimpleTable, OrderedTable } from '@/components'
-import { firestore } from '../main'
+const fb = require('../../store/firebaseConfig')
 
 export default {
-  components: {
-    OrderedTable,
-    SimpleTable
-  },
   data() {
     return {
-      colors: {},
+      colors: [],
+      classes: {},
       name: '',
-      key: ''
+      key: '',
+      color: ''
     }
   },
   firestore() {
     return {
-      colors: firestore
-        .collection('colors')
-        .orderBy('key')
-        .where('key', '>', 0)
+      classes: fb.classesCollection,
+      colors: fb.colorsCollection
     }
   }
 }

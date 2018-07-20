@@ -2,7 +2,7 @@
   <div class="wrapper">
     <notifications/>
 
-    <side-bar>
+    <side-bar v-if="currentUser">
       <mobile-menu slot="content"/>
       <!-- <sidebar-link to="/dashboard">
         <md-icon>dashboard</md-icon>
@@ -81,7 +81,7 @@
     </side-bar>
 
     <div class="main-panel">
-      <top-navbar/>
+      <top-navbar v-if="currentUser"/>
 
       <dashboard-content/>
 
@@ -92,10 +92,11 @@
 <style lang="scss">
 </style>
 <script>
-import TopNavbar from './TopNavbar.vue'
-import ContentFooter from './ContentFooter.vue'
-import DashboardContent from './Content.vue'
-import MobileMenu from '@/pages/Layout/MobileMenu.vue'
+import { mapState } from 'vuex'
+import TopNavbar from './TopNavbar'
+import ContentFooter from './ContentFooter'
+import DashboardContent from './Content'
+import MobileMenu from '@/pages/Layout/MobileMenu'
 
 export default {
   components: {
@@ -103,6 +104,9 @@ export default {
     DashboardContent,
     ContentFooter,
     MobileMenu
+  },
+  computed: {
+    ...mapState(['currentUser'])
   }
 }
 </script>

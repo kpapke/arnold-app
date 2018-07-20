@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div id="signIn">
     <section>
       <div class="content">
         <div 
@@ -12,7 +12,7 @@
               <md-card>
                 <md-card-header data-background-color="green">
                   <h4 class="title">Welcome Back</h4>
-                  <p class="category">Enter your email and password to log in.</p>
+                  <p class="category">Enter your email and password to sign in.</p>
                 </md-card-header>
                 <md-card-content>
                   <div class="md-layout">
@@ -42,18 +42,19 @@
                   </div>
                             
                   <md-button 
-                    class="md-success" 
+                    :class="{ 'md-success': !performingRequest }"
+                    :disabled="performingRequest"
                     @click="login">
-                    <md-icon>vpn_key</md-icon> Log In
+                    <md-icon>vpn_key</md-icon> Sign In
                   </md-button>
                   <div class="extras">
                     <md-button 
-                      class="md-flat md-sm md-info" 
+                      class="md-flat md-sm md-simple" 
                       @click="togglePasswordReset">
                       Forgot Password
                     </md-button>
                     <md-button 
-                      class="md-flat md-sm md-info" 
+                      class="md-flat md-sm md-simple" 
                       @click="toggleForm">
                       Create Account
                     </md-button>
@@ -108,15 +109,16 @@
                   </div>
                             
                   <md-button 
-                    class="md-success" 
+                    :class="{ 'md-success': !performingRequest }"
+                    :disabled="performingRequest"
                     @click="signup">
                     <md-icon>how_to_reg</md-icon> Sign Up
                   </md-button>
                   <div class="extras">
                     <md-button 
-                      class="md-flat md-sm md-info" 
+                      class="md-flat md-sm md-simple" 
                       @click="toggleForm">
-                      Back to login
+                      Back to sign in
                     </md-button>
                   </div>
                 </md-card-content>
@@ -148,15 +150,16 @@
                     </div>
 
                     <md-button 
-                      class="md-success" 
+                      :class="{ 'md-success': !performingRequest }"
+                      :disabled="performingRequest"
                       @click="resetPassword">
                       <md-icon>email</md-icon> Send Password Reset
                     </md-button>
                     <div class="extras">
                       <md-button 
-                        class="md-flat md-sm md-info" 
+                        class="md-flat md-sm md-simple" 
                         @click="togglePasswordReset">
-                        Back to login
+                        Back to sign in
                       </md-button>
                     </div>
                   </md-card-content>
@@ -171,8 +174,8 @@
                   <md-card-content>
                     <div class="md-layout">
                       <md-button 
-                        class="md-flat md-sm md-info" 
-                        @click="togglePasswordReset">Back to login</md-button>
+                        class="md-flat md-sm" 
+                        @click="togglePasswordReset">Back to sign in</md-button>
                     </div>
                   </md-card-content>
                 </md-card>
@@ -180,11 +183,6 @@
             </form>
           </div>
           <transition name="fade">
-            <div 
-              v-if="performingRequest" 
-              class="loading">
-              <p>Loading...</p>
-            </div>
             <div 
               v-if="errorMsg !== ''" 
               class="error-msg">
@@ -198,7 +196,7 @@
 </template>
 
 <script>
-const fb = require('../firebaseConfig')
+const fb = require('../../store/firebaseConfig')
 
 export default {
   data() {
@@ -247,6 +245,7 @@ export default {
           this.$store.dispatch('fetchUserProfile')
           this.performingRequest = false
           this.$router.push('/dashboard')
+          this.showToast('primary', `Signed in with ${user.user.email}`)
         })
         .catch(err => {
           console.log(err)
@@ -300,6 +299,15 @@ export default {
           this.performingRequest = false
           this.errorMsg = err.message
         })
+    },
+    showToast(type, message) {
+      this.$notify({
+        message: message,
+        icon: 'add_alert',
+        horizontalAlign: 'center',
+        verticalAlign: 'top',
+        type: type
+      })
     }
   }
 }

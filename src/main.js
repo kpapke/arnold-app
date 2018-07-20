@@ -14,8 +14,8 @@ import MaterialDashboard from './material-dashboard'
 // router setup
 import router from './router'
 // Vuex store
-import { store } from './store'
-const fb = require('./firebaseConfig')
+import store from './store'
+const fb = require('./store/firebaseConfig')
 
 Vue.config.productionTip = false
 

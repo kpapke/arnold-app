@@ -1,5 +1,7 @@
-import firebase from 'firebase'
-import 'firebase/firestore/dist/index.cjs'
+import 'firebase/app'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
 
 // firebase init
 const config = {
@@ -20,9 +22,9 @@ const settings = { timestampsInSnapshots: true }
 db.settings(settings)
 
 // firebase collections
-const attributesCollection = db.collection('attributes').orderBy('key')
-const classesCollection = db.collection('classes').orderBy('key')
-const colorsCollection = db.collection('colors').orderBy('key')
+const attributesCollection = db.collection('attributes')
+const classesCollection = db.collection('classes')
+const colorsCollection = db.collection('colors')
 const usersCollection = db.collection('users')
 
 export {
