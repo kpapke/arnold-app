@@ -1,12 +1,21 @@
+import AddCollection from '@/pages/HostsCommon/AddCollection'
 import Attributes from '@/pages/HostsCommon/Attributes'
+import Buildings from '@/pages/HostsCommon/Buildings'
 import Classes from '@/pages/HostsCommon/Classes'
 import Colors from '@/pages/HostsCommon/Colors'
+import Events from '@/pages/HostsCommon/Events'
+import Hosts from '@/pages/HostsCommon/Hosts'
+import Locations from '@/pages/HostsCommon/Locations'
+import MaxPotential from '@/pages/HostsCommon/MaxPotential'
+import Props from '@/pages/HostsCommon/Props'
+import Reveries from '@/pages/HostsCommon/Reveries'
 import Roles from '@/pages/HostsCommon/Roles'
 import DashboardLayout from '@/pages/Layout/DashboardLayout'
 import Dashboard from '@/pages/Originals/Dashboard'
 import SignIn from '@/pages/SignIn/SignIn'
 import UserProfile from '@/pages/UserProfile/UserProfile'
 import VueRouter from 'vue-router'
+
 const fb = require('../store/firebaseConfig')
 
 const router = new VueRouter({
@@ -21,9 +30,25 @@ const router = new VueRouter({
       redirect: '/dashboard',
       children: [
         {
+          path: 'add-collection',
+          name: 'Add Collection',
+          component: AddCollection,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
           path: 'attributes',
           name: 'Attributes',
           component: Attributes,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'buildings',
+          name: 'Buildings',
+          component: Buildings,
           meta: {
             requiresAuth: true
           }
@@ -53,11 +78,51 @@ const router = new VueRouter({
           }
         },
         {
-          path: 'signin',
-          name: 'Sign In',
-          component: SignIn,
+          path: 'events',
+          name: 'Events',
+          component: Events,
           meta: {
-            hideFooter: true
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'hosts',
+          name: 'Hosts',
+          component: Hosts,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'locations',
+          name: 'Locations',
+          component: Locations,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'max-potential',
+          name: 'MaxPotential',
+          component: MaxPotential,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'props',
+          name: 'Props',
+          component: Props,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'reveries',
+          name: 'Reveries',
+          component: Reveries,
+          meta: {
+            requiresAuth: true
           }
         },
         {
@@ -66,6 +131,14 @@ const router = new VueRouter({
           component: Roles,
           meta: {
             requiresAuth: true
+          }
+        },
+        {
+          path: 'signin',
+          name: 'Sign In',
+          component: SignIn,
+          meta: {
+            hideFooter: true
           }
         },
         {

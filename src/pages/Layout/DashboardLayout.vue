@@ -9,9 +9,9 @@
         <p>Dashboard</p>
       </sidebar-link> -->
 
-      <sidebar-link to="/add-host">
+      <sidebar-link to="/add-collection">
         <md-icon>person_add</md-icon>
-        <p>Add Host</p>
+        <p>Add Collection</p>
       </sidebar-link>
       <sidebar-link to="/hosts">
         <md-icon>group</md-icon>

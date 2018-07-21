@@ -1,0 +1,119 @@
+<template>
+  <div class="content">
+    <div class="md-layout">
+      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
+        <md-card class="md-card-plain">
+          <form 
+            @submit="submitForm(key, name, color)" 
+            @submit.prevent>
+            <md-field class="md-layout-item md-size-100">
+              <label>Key</label>
+              <md-input 
+                v-model="key"
+                type="number" 
+                class="input" 
+                placeholder="Key (num)"/>
+            </md-field>
+            <md-field class="md-layout-item md-size-100">
+              <label>Name</label>
+              <md-input 
+                v-model="name" 
+                placeholder="Name (str)"/>
+            </md-field>
+            <md-field class="md-layout-item md-size-100">
+              <label>Color</label>
+              <md-input 
+                v-model="color" 
+                placeholder="Color (opt num)"/>
+            </md-field>
+            <div class="md-layout-item md-size-100">
+              <md-button 
+                class="md-raised md-success" 
+                type="submit">Add Item
+              </md-button>
+            </div>
+          </form>
+        </md-card>
+        <md-card>
+          <md-card-header data-background-color="green">
+            <h4 class="title">Attributes Table</h4>
+            <p class="category">{{ countCollection('attributes') }} Items</p>
+          </md-card-header>
+          <md-card-content>
+            <md-table v-model="attributes">
+              <md-table-row 
+                slot="md-table-row" 
+                slot-scope="{ item }">
+                <md-table-cell md-label="key">{{ item.key }}</md-table-cell>
+                <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
+                <md-table-cell md-label="color" >
+                  <div :class="['base-color color-' + item.color ]"/>
+                  <span v-if="classes[item.color]">{{ classes[item.color].name }}</span>
+                </md-table-cell>
+                <md-table-cell md-label="delete"><button @click="removeRow(item.key)">delete</button></md-table-cell>
+              </md-table-row>
+            </md-table>
+          </md-card-content>
+        </md-card>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<script>
+import { mapState, mapGetters, mapActions } from 'vuex'
+const fb = require('../../store/firebaseConfig')
+
+export default {
+  data() {
+    return {
+      name: '',
+      key: '',
+      color: ''
+    }
+  },
+  computed: {
+    ...mapState(['attributes', 'classes']),
+    ...mapGetters(['countCollection'])
+  },
+  methods: {
+    ...mapActions(['addToCollection', 'removeFromCollection']),
+    submitForm(key, name, color) {
+      this.addToCollection({
+        reference: fb.attributesCollection,
+        item: {
+          name,
+          key: parseInt(key),
+          color: color != '' ? parseInt(color) : null
+        }
+      })
+      this.name = null
+      this.key = null
+      this.color = null
+      this.showToast('success', `Item Added: [${name}]`)
+    },
+    removeRow(key) {
+      this.removeFromCollection({
+        reference: fb.attributesCollection,
+        item: {
+          key
+        }
+      })
+      this.showToast('warning', 'Item Deleted')
+    },
+    showToast(type, message) {
+      this.$notify({
+        message: message,
+        icon: 'add_alert',
+        horizontalAlign: 'center',
+        verticalAlign: 'top',
+        type: type
+      })
+    }
+  }
+}
+</script>
+
+<style scoped>
+</style>
