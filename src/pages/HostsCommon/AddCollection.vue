@@ -4,26 +4,20 @@
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card class="md-card-plain">
           <form 
-            @submit="submitForm(field1, field2, field3)" 
+            @submit="submitForm(field1, field2)" 
             @submit.prevent>
-            <md-field class="md-layout-item md-size-100">
-              <label>Key</label>
-              <md-input 
-                v-model="field1"
-                type="number" 
-                placeholder="Key (num)"/>
-            </md-field>
             <md-field class="md-layout-item md-size-100">
               <label>Name</label>
               <md-input 
-                v-model="field2" 
-                placeholder="Name (str)"/>
+                v-model="field1" 
+                placeholder="name (str)"/>
             </md-field>
             <md-field class="md-layout-item md-size-100">
-              <label>Buildings</label>
+              <label>Stars</label>
               <md-input 
-                v-model="field3" 
-                placeholder="Buildings (array)"/>
+                v-model="field2"
+                type="number"
+                placeholder="stars (num)"/>
             </md-field>
             <div class="md-layout-item md-size-100">
               <md-button 
@@ -35,17 +29,16 @@
         </md-card>
         <md-card>
           <md-card-header data-background-color="green">
-            <h4 class="title">Locations Table</h4>
-            <p class="category">{{ countCollection('locations') }} Items</p>
+            <h4 class="title">Events Table</h4>
+            <p class="category">{{ countCollection('events') }} Items</p>
           </md-card-header>
           <md-card-content>
-            <md-table v-model="locations">
+            <md-table v-model="events">
               <md-table-row 
                 slot="md-table-row" 
                 slot-scope="{ item }">
                 <md-table-cell md-label="key">{{ item.key }}</md-table-cell>
                 <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
-                <md-table-cell md-label="buildings">{{ item.buildings }}</md-table-cell>
                 <md-table-cell md-label="delete"><button @click="removeRow(item.key)">delete</button></md-table-cell>
               </md-table-row>
             </md-table>
@@ -60,38 +53,37 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 const fb = require('../../store/firebaseConfig')
-const collectionName = 'locations'
+const collectionName = 'events'
 
 export default {
   data() {
     return {
       field1: '',
-      field2: '',
-      field3: ''
+      field2: ''
     }
   },
   computed: {
-    ...mapState(['locations']),
+    ...mapState([collectionName]),
     ...mapGetters(['countCollection'])
   },
   methods: {
     ...mapActions(['addToCollection', 'removeFromCollection']),
-    submitForm(field1, field2, field3) {
+    submitForm(field1, field2) {
       this.addToCollection({
         reference: fb.collections[collectionName],
         item: {
-          key: parseInt(field1),
-          name: field2,
-          buildings: field3
-            .replace('[', '')
-            .replace(']', '')
-            .split(',')
-            .map(Number)
+          key: this.events.length,
+          name: field1
+          //   stars: parseInt(field2)
+          //   attributes: field3
+          //     .replace('[', '')
+          //     .replace(']', '')
+          //     .split(',')
+          //     .map(Number)
         }
       })
       this.field1 = null
       this.field2 = null
-      this.field3 = null
       this.showToast('success', `Item Added: [${field1}]`)
     },
     removeRow(key) {

@@ -14,7 +14,7 @@
                 slot-scope="{ item }">
                 <md-table-cell md-label="key">{{ item.key }}</md-table-cell>
                 <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
-                <md-table-cell md-label="color" >
+                <md-table-cell md-label="color">
                   <div :class="['base-color color-' + item.color ]"/>
                   <span v-if="classes[item.color]">{{ classes[item.color].name }}</span>
                 </md-table-cell>
