@@ -6,7 +6,7 @@ import Colors from '@/pages/HostsCommon/Colors'
 import Events from '@/pages/HostsCommon/Events'
 import Hosts from '@/pages/HostsCommon/Hosts'
 import Locations from '@/pages/HostsCommon/Locations'
-import MaxPotential from '@/pages/HostsCommon/MaxPotential'
+import MaxPotentials from '@/pages/HostsCommon/MaxPotentials'
 import Props from '@/pages/HostsCommon/Props'
 import Reveries from '@/pages/HostsCommon/Reveries'
 import Roles from '@/pages/HostsCommon/Roles'
@@ -102,9 +102,9 @@ const router = new VueRouter({
           }
         },
         {
-          path: 'max-potential',
-          name: 'MaxPotential',
-          component: MaxPotential,
+          path: 'max-potentials',
+          name: 'MaxPotentials',
+          component: MaxPotentials,
           meta: {
             requiresAuth: true
           }

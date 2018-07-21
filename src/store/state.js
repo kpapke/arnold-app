@@ -2,18 +2,17 @@ const state = {
   currentUser: null,
   userProfile: {},
   todos: [{ id: 1, text: '...', done: false }, { id: 2, text: '...', done: true }],
-  hosts: [],
-  classes: [],
-  roles: [],
   attributes: [],
-  maxPotential: [],
-  roles: [],
+  buildings: [],
+  classes: [],
+  colors: [],
+  events: [],
+  hosts: [],
+  locations: [],
+  maxPotentials: [],
   props: [],
   reveries: [],
-  buildings: [],
-  locations: [],
-  events: [],
-  colors: []
+  roles: []
 }
 
 export default state

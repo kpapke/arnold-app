@@ -16,7 +16,7 @@
                 <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
                 <md-table-cell md-label="color" >
                   <div :class="['base-color color-' + item.key ]"/>
-                  <span>{{ colors[item.key].name }}</span>
+                  <span v-if="colors[item.key]">{{ colors[item.key].name }}</span>
                 </md-table-cell>
               </md-table-row>
             </md-table>

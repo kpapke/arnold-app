@@ -9,26 +9,28 @@ Vue.use(Vuex)
 
 const initializeStateWithCollections = () => {
   const fb = require('./firebaseConfig')
-  const collections = [fb.colorsCollection, fb.classesCollection, fb.attributesCollection]
-  collections.forEach(collection => {
-    collection
-      .orderBy('key')
-      .get()
-      .then(querySnapshot => {
-        if (querySnapshot.empty) {
-          return
-        } else {
-          const updatedCollection = {
-            id: collection.id,
-            items: []
+  for (var collection in fb.collections) {
+    if (fb.collections.hasOwnProperty(collection)) {
+      const collectionId = fb.collections[collection].id
+      fb.collections[collection]
+        .orderBy('key')
+        .get()
+        .then(querySnapshot => {
+          if (querySnapshot.empty) {
+            return
+          } else {
+            const updatedCollection = {
+              id: collectionId,
+              items: []
+            }
+            querySnapshot.forEach(doc => {
+              updatedCollection.items.push(doc.data())
+            })
+            store.commit('setCollection', updatedCollection)
           }
-          querySnapshot.forEach(doc => {
-            updatedCollection.items.push(doc.data())
-          })
-          store.commit('setCollection', updatedCollection)
-        }
-      })
-  })
+        })
+    }
+  }
 }
 initializeStateWithCollections()
 

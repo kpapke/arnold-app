@@ -16,7 +16,7 @@ const actions = {
     commit('setUserProfile', {})
   },
   fetchUserProfile({ commit, state }) {
-    fb.usersCollection
+    fb.collections['users']
       .doc(store.state.currentUser.uid)
       .get()
       .then(res => {

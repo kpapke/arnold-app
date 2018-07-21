@@ -4,14 +4,13 @@
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card class="md-card-plain">
           <form 
-            @submit="submitForm(key, name, color)" 
+            @submit="submitForm(key, name, classKey)" 
             @submit.prevent>
             <md-field class="md-layout-item md-size-100">
               <label>Key</label>
               <md-input 
                 v-model="key"
                 type="number" 
-                class="input" 
                 placeholder="Key (num)"/>
             </md-field>
             <md-field class="md-layout-item md-size-100">
@@ -21,10 +20,11 @@
                 placeholder="Name (str)"/>
             </md-field>
             <md-field class="md-layout-item md-size-100">
-              <label>Color</label>
+              <label>Class</label>
               <md-input 
-                v-model="color" 
-                placeholder="Color (opt num)"/>
+                v-model="classKey" 
+                type="number"
+                placeholder="Class Key (num)"/>
             </md-field>
             <div class="md-layout-item md-size-100">
               <md-button 
@@ -36,19 +36,19 @@
         </md-card>
         <md-card>
           <md-card-header data-background-color="green">
-            <h4 class="title">Attributes Table</h4>
-            <p class="category">{{ countCollection('attributes') }} Items</p>
+            <h4 class="title">Roles Table</h4>
+            <p class="category">{{ countCollection('roles') }} Items</p>
           </md-card-header>
           <md-card-content>
-            <md-table v-model="attributes">
+            <md-table v-model="roles">
               <md-table-row 
                 slot="md-table-row" 
                 slot-scope="{ item }">
                 <md-table-cell md-label="key">{{ item.key }}</md-table-cell>
                 <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
-                <md-table-cell md-label="color" >
-                  <div :class="['base-color color-' + item.color ]"/>
-                  <span v-if="classes[item.color]">{{ classes[item.color].name }}</span>
+                <md-table-cell md-label="class" >
+                  <div :class="['base-color color-' + item.class ]"/>
+                  <span v-if="classes[item.class]">{{ classes[item.class].name }}</span>
                 </md-table-cell>
                 <md-table-cell md-label="delete"><button @click="removeRow(item.key)">delete</button></md-table-cell>
               </md-table-row>
@@ -70,32 +70,32 @@ export default {
     return {
       name: '',
       key: '',
-      color: ''
+      classKey: ''
     }
   },
   computed: {
-    ...mapState(['attributes', 'classes']),
+    ...mapState(['roles', 'classes']),
     ...mapGetters(['countCollection'])
   },
   methods: {
     ...mapActions(['addToCollection', 'removeFromCollection']),
-    submitForm(key, name, color) {
+    submitForm(key, name, classKey) {
       this.addToCollection({
-        reference: fb.attributesCollection,
+        reference: fb.collections['roles'],
         item: {
           name,
           key: parseInt(key),
-          color: color != '' ? parseInt(color) : null
+          class: parseInt(classKey)
         }
       })
       this.name = null
       this.key = null
-      this.color = null
+      this.classKey = null
       this.showToast('success', `Item Added: [${name}]`)
     },
     removeRow(key) {
       this.removeFromCollection({
-        reference: fb.attributesCollection,
+        reference: fb.collections['roles'],
         item: {
           key
         }

@@ -4,11 +4,11 @@
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card>
           <md-card-header data-background-color="green">
-            <h4 class="title">Max Potential Table</h4>
-            <p class="category">{{ countCollection('maxPotential') }} Items</p>
+            <h4 class="title">Max Potentials Table</h4>
+            <p class="category">{{ countCollection('maxPotentials') }} Items</p>
           </md-card-header>
           <md-card-content>
-            <md-table v-model="maxPotential">
+            <md-table v-model="maxPotentials">
               <md-table-row 
                 slot="md-table-row" 
                 slot-scope="{ item }">
@@ -32,7 +32,7 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['maxPotential']),
+    ...mapState(['maxPotentials']),
     ...mapGetters(['countCollection'])
   }
 }

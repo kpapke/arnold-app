@@ -23,16 +23,31 @@ db.settings(settings)
 
 // firebase collections
 const attributesCollection = db.collection('attributes')
+const buildingsCollection = db.collection('buildings')
 const classesCollection = db.collection('classes')
 const colorsCollection = db.collection('colors')
+const eventsCollection = db.collection('events')
+const hostsCollection = db.collection('hosts')
+const locationsCollection = db.collection('locations')
+const maxPotentialsCollection = db.collection('maxPotentials')
+const propsCollection = db.collection('props')
+const reveriesCollection = db.collection('reveries')
+const rolesCollection = db.collection('roles')
 const usersCollection = db.collection('users')
 
-export {
-  db,
-  auth,
-  currentUser,
-  attributesCollection,
-  classesCollection,
-  colorsCollection,
-  usersCollection
+const collections = {
+  attributes: attributesCollection,
+  buildings: buildingsCollection,
+  classes: classesCollection,
+  colors: colorsCollection,
+  events: eventsCollection,
+  hosts: hostsCollection,
+  locations: locationsCollection,
+  maxPotentials: maxPotentialsCollection,
+  props: propsCollection,
+  reveries: reveriesCollection,
+  roles: rolesCollection,
+  users: usersCollection
 }
+
+export { db, auth, currentUser, collections }
