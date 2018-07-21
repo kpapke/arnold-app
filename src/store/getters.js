@@ -7,6 +7,15 @@ const getters = {
   },
   getTodoById: state => id => {
     return state.todos.find(todo => todo.id === id)
+  },
+  getAttributes: state => {
+    return state.attributes
+  },
+  getClasses: state => {
+    return state.classes
+  },
+  getColors: state => {
+    return state.colors
   }
 }
 

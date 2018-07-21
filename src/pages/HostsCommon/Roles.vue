@@ -9,21 +9,22 @@
             <md-field class="md-layout-item md-size-100">
               <label>Key</label>
               <md-input 
-                v-model="key" 
+                v-model="key"
+                type="number" 
                 class="input" 
-                placeholder="Key"/>
+                placeholder="Key (num)"/>
             </md-field>
             <md-field class="md-layout-item md-size-100">
               <label>Name</label>
               <md-input 
                 v-model="name" 
-                placeholder="Name"/>
+                placeholder="Name (str)"/>
             </md-field>
             <md-field class="md-layout-item md-size-100">
               <label>Color</label>
               <md-input 
                 v-model="color" 
-                placeholder="Color"/>
+                placeholder="Color (opt num)"/>
             </md-field>
             <div class="md-layout-item md-size-100">
               <md-button 
@@ -43,13 +44,13 @@
               <md-table-row 
                 slot="md-table-row" 
                 slot-scope="{ item }">
-                <md-table-cell md-label="key">{{ item.data.key }}</md-table-cell>
-                <md-table-cell md-label="name">{{ item.data.name }}</md-table-cell>
+                <md-table-cell md-label="key">{{ item.key }}</md-table-cell>
+                <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
                 <md-table-cell md-label="color" >
-                  <div :class="['base-color base-' + item.data.color ]"/>
-                  <span>{{ classes[item.data.color-1] ? classes[item.data.color-1].name : '' }}</span>
+                  <div :class="['base-color color-' + item.color ]"/>
+                  <span v-if="classes[item.color]">{{ classes[item.color].name }}</span>
                 </md-table-cell>
-                <md-table-cell md-label="delete"><button @click="removeRow(item.id)">delete</button></md-table-cell>
+                <md-table-cell md-label="delete"><button @click="removeRow(item.key)">delete</button></md-table-cell>
               </md-table-row>
             </md-table>
           </md-card-content>
@@ -74,17 +75,17 @@ export default {
   },
   computed: {
     ...mapState(['attributes', 'classes']),
-    ...mapGetters(['countCollection', 'getAttributes', 'getClasses'])
+    ...mapGetters(['countCollection'])
   },
   methods: {
     ...mapActions(['addToCollection', 'removeFromCollection']),
     submitForm(key, name, color) {
       this.addToCollection({
-        collection: fb.attributesCollection,
+        reference: fb.attributesCollection,
         item: {
-          key,
           name,
-          color
+          key: parseInt(key),
+          color: color != '' ? parseInt(color) : null
         }
       })
       this.name = null
@@ -92,10 +93,12 @@ export default {
       this.color = null
       this.showToast('success', `Item Added: [${name}]`)
     },
-    removeRow(id) {
+    removeRow(key) {
       this.removeFromCollection({
-        collection: fb.attributesCollection,
-        id
+        reference: fb.attributesCollection,
+        item: {
+          key
+        }
       })
       this.showToast('warning', 'Item Deleted')
     },
@@ -113,33 +116,4 @@ export default {
 </script>
 
 <style scoped>
-.base-color {
-  width: 25px;
-  height: 25px;
-  margin-right: 25px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.base-1 {
-  background: #ffa338;
-}
-.base-2 {
-  background: #4079ff;
-  color: white;
-}
-.base-3 {
-  background: #98f55d;
-}
-.base-4 {
-  background: #ed376e;
-  color: white;
-}
-.base-5 {
-  background: #bae9eb;
-}
-.base-6 {
-  color: white;
-  background: #a550cc;
-}
 </style>

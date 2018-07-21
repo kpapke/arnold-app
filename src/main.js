@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 import VueFire from 'vuefire'
 import App from './App'
 import Notifications from './components/NotificationPlugin'
+import '../src/assets/scss/base-colors.scss'
 // Plugins
 import GlobalComponents from './globalComponents'
 import GlobalDirectives from './globalDirectives'

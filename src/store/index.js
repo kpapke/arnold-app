@@ -7,26 +7,30 @@ import state from './state'
 
 Vue.use(Vuex)
 
-const fb = require('./firebaseConfig')
-
-const collections = [
-  { commitName: 'setColors', data: fb.colorsCollection },
-  { commitName: 'setClasses', data: fb.classesCollection },
-  { commitName: 'setAttributes', data: fb.attributesCollection }
-]
-collections.forEach(collection => {
-  collection.data.get().then(querySnapshot => {
-    if (querySnapshot.empty) {
-      return
-    } else {
-      const items = []
-      querySnapshot.forEach(doc => {
-        items.push({ id: doc.id, data: doc.data() })
+const initializeStateWithCollections = () => {
+  const fb = require('./firebaseConfig')
+  const collections = [fb.colorsCollection, fb.classesCollection, fb.attributesCollection]
+  collections.forEach(collection => {
+    collection
+      .orderBy('key')
+      .get()
+      .then(querySnapshot => {
+        if (querySnapshot.empty) {
+          return
+        } else {
+          const updatedCollection = {
+            id: collection.id,
+            items: []
+          }
+          querySnapshot.forEach(doc => {
+            updatedCollection.items.push(doc.data())
+          })
+          store.commit('setCollection', updatedCollection)
+        }
       })
-      store.commit(collection.commitName, items)
-    }
   })
-})
+}
+initializeStateWithCollections()
 
 const store = new Vuex.Store({
   state,

@@ -1,0 +1,29 @@
+.base-color {
+    width: 25px;
+    height: 25px;
+    margin-right: 25px;
+    display: inline-block;
+    vertical-align: middle;
+  
+  &.color-0 {
+    background: #ffa338;
+  }
+  &.color-1 {
+    background: #4079ff;
+    color: white;
+  }
+  &.color-2 {
+    background: #98f55d;
+  }
+  &.color-3 {
+    background: #ed376e;
+    color: white;
+  }
+  &.color-4 {
+    background: #bae9eb;
+  }
+  &.color-5 {
+    color: white;
+    background: #a550cc;
+  }
+}

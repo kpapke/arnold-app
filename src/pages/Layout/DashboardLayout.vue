@@ -49,6 +49,10 @@
         <md-icon>map</md-icon>
         <p>Locations</p>
       </sidebar-link>
+      <sidebar-link to="/events">
+        <md-icon>date_range</md-icon>
+        <p>Events</p>
+      </sidebar-link>
       <sidebar-link to="/colors">
         <md-icon>color_lens</md-icon>
         <p>Colors</p>

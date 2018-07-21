@@ -1,4 +1,3 @@
-const fb = require('./firebaseConfig')
 const state = {
   currentUser: null,
   userProfile: {},

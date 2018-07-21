@@ -37,28 +37,45 @@ const actions = {
         console.log(err)
       })
   },
-  removeFromCollection({ dispatch }, data) {
-    data.collection
-      .doc(data.id)
+  removeFromCollection({ dispatch }, collection) {
+    collection.reference
+      .doc(collection.item.key.toString()) // doc id must be a string, but item key should be number
       .delete()
       .then(ref => {
-        // TODO Update store when items add & remove
-        // store.dispatch('refreshCollection', { collection: data.collection }, 'name')
+        store.dispatch('setCollection', collection.reference)
       })
       .catch(err => {
         console.log(err)
       })
   },
-  addToCollection({ dispatch }, data) {
-    const collection = data.collection
-    const { key, name, color } = data.item
-    collection
-      .add(data.item)
+  addToCollection({ dispatch }, collection) {
+    collection.reference
+      .doc(collection.item.key.toString()) // doc id must be a string, but item key should be number
+      .set(collection.item)
       .then(ref => {
-        // TODO Update store when items add & remove
+        store.dispatch('setCollection', collection.reference)
       })
       .catch(err => {
         console.log(err)
+      })
+  },
+  setCollection({ dispatch }, collection) {
+    collection
+      .orderBy('key')
+      .get()
+      .then(querySnapshot => {
+        if (querySnapshot.empty) {
+          return
+        } else {
+          const updatedCollection = {
+            id: collection.id,
+            items: []
+          }
+          querySnapshot.forEach(doc => {
+            updatedCollection.items.push(doc.data())
+          })
+          store.commit('setCollection', updatedCollection)
+        }
       })
   }
 }
