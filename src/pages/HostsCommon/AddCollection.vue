@@ -39,17 +39,16 @@
                 slot-scope="{ item }">
                 <md-table-cell md-label="key">{{ item.key }}</md-table-cell>
                 <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
+                <md-table-cell md-label="stars">{{ item.stars }}</md-table-cell>
                 <md-table-cell md-label="roles">
-                  <div 
+                  <img
                     v-for="(roleKey, index) in item.roles" 
-                    :key="index">
-                    <img
-                      v-if="roles[roleKey]"
-                      :src="require('@/assets/img/roles/byKey/'+ roleKey + '.icon.png')" 
-                      :alt="roles[roleKey].name"
-                      class="role-icon-sm"
-                    >
-                  </div>
+                    v-if="roles[roleKey]"
+                    :key="index"
+                    :src="require('@/assets/img/roles/byKey/'+ roleKey + '.icon.png')" 
+                    :alt="roles[roleKey].name"
+                    class="role-icon-sm"
+                  >
                 </md-table-cell>
                 <md-table-cell md-label="delete"><button @click="removeRow(item.key)">delete</button></md-table-cell>
               </md-table-row>
