@@ -51,7 +51,7 @@ const actions = {
   addToCollection({ dispatch }, collection) {
     collection.reference
       .doc(collection.item.key.toString()) // doc id must be a string, but item key should be number
-      .set(collection.item)
+      .set(collection.item, { merge: true })
       .then(ref => {
         store.dispatch('setCollection', collection.reference)
       })

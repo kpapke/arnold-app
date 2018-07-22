@@ -7,17 +7,17 @@
             @submit="submitForm(field1, field2)" 
             @submit.prevent>
             <md-field class="md-layout-item md-size-100">
-              <label>Name</label>
+              <label>Key</label>
               <md-input 
-                v-model="field1" 
-                placeholder="name (str)"/>
+                v-model="field1"
+                type="number"
+                placeholder="key (str)"/>
             </md-field>
             <md-field class="md-layout-item md-size-100">
-              <label>Stars</label>
+              <label>Roles</label>
               <md-input 
-                v-model="field2"
-                type="number"
-                placeholder="stars (num)"/>
+                v-model="field2" 
+                placeholder="roles (array)"/>
             </md-field>
             <div class="md-layout-item md-size-100">
               <md-button 
@@ -29,16 +29,28 @@
         </md-card>
         <md-card>
           <md-card-header data-background-color="green">
-            <h4 class="title">Events Table</h4>
-            <p class="category">{{ countCollection('events') }} Items</p>
+            <h4 class="title">Hosts Table</h4>
+            <p class="category">{{ countCollection('hosts') }} Items</p>
           </md-card-header>
           <md-card-content>
-            <md-table v-model="events">
+            <md-table v-model="hosts">
               <md-table-row 
                 slot="md-table-row" 
                 slot-scope="{ item }">
                 <md-table-cell md-label="key">{{ item.key }}</md-table-cell>
                 <md-table-cell md-label="name">{{ item.name }}</md-table-cell>
+                <md-table-cell md-label="roles">
+                  <div 
+                    v-for="(roleKey, index) in item.roles" 
+                    :key="index">
+                    <img
+                      v-if="roles[roleKey]"
+                      :src="require('@/assets/img/roles/byKey/'+ roleKey + '.icon.png')" 
+                      :alt="roles[roleKey].name"
+                      class="role-icon-sm"
+                    >
+                  </div>
+                </md-table-cell>
                 <md-table-cell md-label="delete"><button @click="removeRow(item.key)">delete</button></md-table-cell>
               </md-table-row>
             </md-table>
@@ -53,7 +65,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 const fb = require('../../store/firebaseConfig')
-const collectionName = 'events'
+const collectionName = 'hosts'
 
 export default {
   data() {
@@ -63,7 +75,7 @@ export default {
     }
   },
   computed: {
-    ...mapState([collectionName]),
+    ...mapState([collectionName, 'roles']),
     ...mapGetters(['countCollection'])
   },
   methods: {
@@ -72,14 +84,12 @@ export default {
       this.addToCollection({
         reference: fb.collections[collectionName],
         item: {
-          key: this.events.length,
-          name: field1
-          //   stars: parseInt(field2)
-          //   attributes: field3
-          //     .replace('[', '')
-          //     .replace(']', '')
-          //     .split(',')
-          //     .map(Number)
+          key: parseInt(field1),
+          roles: field2
+            .replace('[', '')
+            .replace(']', '')
+            .split(',')
+            .map(Number)
         }
       })
       this.field1 = null
